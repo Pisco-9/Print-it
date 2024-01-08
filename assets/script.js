@@ -18,69 +18,61 @@ const slides = [
   },
 ];
 
-let image = document.querySelector(".banner-img");
-// console.log(image);
+const bannerImg = document.querySelector(".banner-img");
+console.log(bannerImg);
 
-let texte = document.querySelector("#banner p");
-// console.log(texte);
+const bannerPara = document.querySelector("#banner p");
+console.log(bannerPara);
 
-let arrowRight = document.querySelector(".arrow button:nth-child(2)");
-let arrowLeft = document.querySelector(".arrow button:nth-child(1)");
-// console.log(arrowRight);
-// console.log(arrowLeft);
+const arrowRight = document.querySelector(".arrow_right");
+console.log(arrowRight);
 
-let bulles = document.querySelector(".dots");
-// console.log(bulles);
+const arrowLeft = document.querySelector(".arrow_left");
+console.log(arrowLeft);
+
+const divRonds = document.querySelector(".dots");
+console.log(divRonds);
+
+let rond;
 
 let index = 0;
 
-/**Je crée une fonction qui va créer autant de <span> que d'images dans le tableau "slides".*/
-function createDot() {
-  /**La boucle for générera un nombre équivalent de <span> que d'images créées dans le tableau "slides".*/
+function createSpanDot() {
   for (let index = 0; index < slides.length; index++) {
-    /**En-dessous, je crée la balise <span></span>.*/
-    const dot = document.createElement("span");
-
-    /**En-dessous, j'ajoute la classe "dot" du (style.css) dans la balise <span>.*/
-    dot.classList.add("dot");
-
-    /**En-dessous, j'ajoute la balise <span> dans la balise <div> qui a la classe "dots".*/
-    bulles.appendChild(dot);
+    const spanDot = document.createElement("span");
+    spanDot.classList.add("dot");
+    divRonds.appendChild(spanDot);
   }
 }
-createDot(); /**ici le "createDot()" permet d'afficher la création (des <span>) dans la page internet.*/
+createSpanDot();
 
-function updateSlide() {
-  image.src = "./assets/images/slideshow/" + slides[index].image;
-  texte.innerHTML = slides[index].tagLine;
+function upGradeSlide() {
+  bannerImg.src = "./assets/images/slideshow/" + slides[index].image;
+  bannerPara.innerHTML = slides[index].tagLine;
 
-  const dots = document.querySelectorAll(".dot");
+  const dotSpan = document.querySelectorAll(".dots span");
+  console.log(dotSpan);
 
-  for (let bulle of dots) {
-    bulle.classList.remove("dot_selected");
+  for (rond of dotSpan) {
+    rond.classList.remove("dot_selected");
+
+    dotSpan[index].classList.add("dot_selected");
   }
-
-  dots[index].classList.add("dot_selected");
 }
+upGradeSlide();
 
-updateSlide();
-
-arrowRight.addEventListener("click", function () {
+arrowRight.addEventListener("click", () => {
   index++;
   if (index >= slides.length) {
     index = 0;
   }
-  updateSlide();
-  console.log(index);
+  upGradeSlide();
 });
 
-arrowLeft.addEventListener("click", function () {
+arrowLeft.addEventListener("click", () => {
   index--;
   if (index < 0) {
     index = slides.length - 1;
   }
-  updateSlide();
-  console.log(index);
+  upGradeSlide();
 });
-
-console.log(arrowRight.length);
